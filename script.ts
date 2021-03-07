@@ -1,5 +1,6 @@
 class StatApp {
     containerDOMElement: Element;
+    
     constructor(containerDOMElement: Element) {
         if(!containerDOMElement) {
             throw new Error("Musisz podać element");
@@ -7,26 +8,61 @@ class StatApp {
         this.containerDOMElement = containerDOMElement;
         this.startApp();
     }
-    getInputs(): void {
-        let elements = this.containerDOMElement.getElementsByTagName("input");
-        let numberArray: Array<number>;
+     
+    startApp(): void {
+        this.assignListener();
+    }
+
+    getInputsAndValues(): Array<number> {
+        let elements = this.containerDOMElement.querySelectorAll("input");
+        if(!elements) {
+            throw new Error("Brak inutów");
+        }
+        const numberArray: Array<number> = [];
         for(let i = 0;i < elements.length; i++)
         {
-            //let value: number = parseFloat(elements[i].value);
             let value: number = +elements[i].value;
-            value.toString();
-            numberArray += ;
+            numberArray.push(value);
         }
+
+        return numberArray;
+    } 
+
+    refreshData(): void {
+        let numbers = this.getInputsAndValues();
+
+        const sum = this.sumFunction(numbers);
+        const avg = this.avgFunction(numbers);
+        const max = Math.max(...numbers);
+        const min = Math.min(...numbers);
+
+        this.assignData(sum, avg, max, min);
     }
 
-    startApp(): void {
-
+    assignData(sum: number, avg: number, max: number, min: number): void {
+        document.getElementById("sum").textContent = sum.toString();
+        document.getElementById("avg").textContent = avg.toString();
+        document.getElementById("min").textContent = min.toString();
+        document.getElementById("max").textContent = max.toString();
     }
-}
 
-class Statistic {
+    sumFunction(numbersArray: Array<number>): number {
+        let sum = 0;
+        numbersArray.forEach(element => {
+            sum += element;
+        });
+        return sum;
+    }
 
-    constructor(inputArray: Array<number>) {
+    avgFunction(numbersArray: Array<number>) {
+        return this.sumFunction(numbersArray)/numbersArray.length;
+    }
+
+    assignListener(): void {
+        let elements = this.containerDOMElement.querySelectorAll("input");
+
+        for(let i = 0;i < elements.length; i++)
+            elements[i].addEventListener("input", () => this.refreshData());
 
     }
 }
