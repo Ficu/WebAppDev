@@ -10,18 +10,58 @@ class StatApp {
     }
      
     startApp(): void {
-        this.assignListener();
+        this.assignListenerNumberInput();
+        this.assignListenerInputGenerator();
     }
 
+    assignListenerNumberInput(): void {
+        let elements = this.containerDOMElement.querySelectorAll("input");
+        let deleteButtons = this.containerDOMElement.querySelectorAll("button");
+
+        for(let i = 0;i < elements.length; i++) {
+            elements[i].addEventListener("input", () => this.refreshData());
+            deleteButtons[i].addEventListener("click", (e) => this.deleteSib(e));
+        }
+    }
+
+    deleteSib(e): void {
+        e.currentTarget.parentNode.remove()
+    }
+
+    assignListenerInputGenerator(): void {
+        console.log(document.getElementById("addButton"));
+        document.getElementById("addButton").addEventListener("click", () => this.generateInput());
+    }
+
+    generateInput(): void {
+        let numberOfButtons: number = +document.getElementById("inputNumber").querySelector("input").value;
+        console.log(document.getElementById("inputNumber"));
+        console.log("created " + numberOfButtons);
+        for(let i = 0; i< numberOfButtons; i++){
+            
+            let createDiv = document.createElement("div");
+            let createInput = document.createElement("input");
+            createInput.type = "number";
+            createInput.addEventListener("input", () => this.refreshData());
+            let createButton = document.createElement("button");
+            createButton.textContent = "Usuń";
+            createButton.addEventListener("click", (e) => this.deleteSib(e));
+            createDiv.appendChild(createInput);
+            createDiv.appendChild(createButton);
+            
+            this.containerDOMElement.appendChild(createDiv);
+        }
+    }
     getInputsAndValues(): Array<number> {
         let elements = this.containerDOMElement.querySelectorAll("input");
         if(!elements) {
-            throw new Error("Brak inutów");
+            throw new Error("Brak inputów");
         }
+        console.log(elements);
         const numberArray: Array<number> = [];
         for(let i = 0;i < elements.length; i++)
         {
-            let value: number = +elements[i].value;
+           let value: number = +elements[i].value;
             numberArray.push(value);
         }
 
@@ -58,13 +98,6 @@ class StatApp {
         return this.sumFunction(numbersArray)/numbersArray.length;
     }
 
-    assignListener(): void {
-        let elements = this.containerDOMElement.querySelectorAll("input");
-
-        for(let i = 0;i < elements.length; i++)
-            elements[i].addEventListener("input", () => this.refreshData());
-
-    }
 }
 
 const statApp = new StatApp(document.querySelector("#startApp"));

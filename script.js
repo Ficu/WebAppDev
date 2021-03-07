@@ -7,13 +7,50 @@ var StatApp = /** @class */ (function () {
         this.startApp();
     }
     StatApp.prototype.startApp = function () {
-        this.assignListener();
+        this.assignListenerNumberInput();
+        this.assignListenerInputGenerator();
+    };
+    StatApp.prototype.assignListenerNumberInput = function () {
+        var _this = this;
+        var elements = this.containerDOMElement.querySelectorAll("input");
+        var deleteButtons = this.containerDOMElement.querySelectorAll("button");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener("input", function () { return _this.refreshData(); });
+            deleteButtons[i].addEventListener("click", function (e) { return _this.deleteSib(e); });
+        }
+    };
+    StatApp.prototype.deleteSib = function (e) {
+        e.currentTarget.parentNode.remove();
+    };
+    StatApp.prototype.assignListenerInputGenerator = function () {
+        var _this = this;
+        console.log(document.getElementById("addButton"));
+        document.getElementById("addButton").addEventListener("click", function () { return _this.generateInput(); });
+    };
+    StatApp.prototype.generateInput = function () {
+        var _this = this;
+        var numberOfButtons = +document.getElementById("inputNumber").querySelector("input").value;
+        console.log(document.getElementById("inputNumber"));
+        console.log("created " + numberOfButtons);
+        for (var i = 0; i < numberOfButtons; i++) {
+            var createDiv = document.createElement("div");
+            var createInput = document.createElement("input");
+            createInput.type = "number";
+            createInput.addEventListener("input", function () { return _this.refreshData(); });
+            var createButton = document.createElement("button");
+            createButton.textContent = "Usuń";
+            createButton.addEventListener("click", function (e) { return _this.deleteSib(e); });
+            createDiv.appendChild(createInput);
+            createDiv.appendChild(createButton);
+            this.containerDOMElement.appendChild(createDiv);
+        }
     };
     StatApp.prototype.getInputsAndValues = function () {
         var elements = this.containerDOMElement.querySelectorAll("input");
         if (!elements) {
-            throw new Error("Brak inutów");
+            throw new Error("Brak inputów");
         }
+        console.log(elements);
         var numberArray = [];
         for (var i = 0; i < elements.length; i++) {
             var value = +elements[i].value;
@@ -44,12 +81,6 @@ var StatApp = /** @class */ (function () {
     };
     StatApp.prototype.avgFunction = function (numbersArray) {
         return this.sumFunction(numbersArray) / numbersArray.length;
-    };
-    StatApp.prototype.assignListener = function () {
-        var _this = this;
-        var elements = this.containerDOMElement.querySelectorAll("input");
-        for (var i = 0; i < elements.length; i++)
-            elements[i].addEventListener("input", function () { return _this.refreshData(); });
     };
     return StatApp;
 }());
