@@ -9,6 +9,7 @@ var StatApp = /** @class */ (function () {
     StatApp.prototype.startApp = function () {
         this.assignListenerNumberInput();
         this.assignListenerInputGenerator();
+        this.assignListenerDeleteAll();
     };
     StatApp.prototype.assignListenerNumberInput = function () {
         var _this = this;
@@ -22,16 +23,20 @@ var StatApp = /** @class */ (function () {
     StatApp.prototype.deleteSib = function (e) {
         e.currentTarget.parentNode.remove();
     };
+    StatApp.prototype.deleteAll = function () {
+        this.containerDOMElement.innerHTML = "";
+    };
     StatApp.prototype.assignListenerInputGenerator = function () {
         var _this = this;
-        console.log(document.getElementById("addButton"));
         document.getElementById("addButton").addEventListener("click", function () { return _this.generateInput(); });
+    };
+    StatApp.prototype.assignListenerDeleteAll = function () {
+        var _this = this;
+        document.getElementById("deleteAll").addEventListener("click", function () { return _this.deleteAll(); });
     };
     StatApp.prototype.generateInput = function () {
         var _this = this;
         var numberOfButtons = +document.getElementById("inputNumber").querySelector("input").value;
-        console.log(document.getElementById("inputNumber"));
-        console.log("created " + numberOfButtons);
         for (var i = 0; i < numberOfButtons; i++) {
             var createDiv = document.createElement("div");
             var createInput = document.createElement("input");
@@ -50,7 +55,6 @@ var StatApp = /** @class */ (function () {
         if (!elements) {
             throw new Error("Brak inputów");
         }
-        console.log(elements);
         var numberArray = [];
         for (var i = 0; i < elements.length; i++) {
             var value = +elements[i].value;

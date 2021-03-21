@@ -12,6 +12,7 @@ class StatApp {
     startApp(): void {
         this.assignListenerNumberInput();
         this.assignListenerInputGenerator();
+        this.assignListenerDeleteAll();
     }
 
     assignListenerNumberInput(): void {
@@ -28,15 +29,21 @@ class StatApp {
         e.currentTarget.parentNode.remove()
     }
 
+    deleteAll(): void {
+        this.containerDOMElement.innerHTML = "";
+    } 
+
     assignListenerInputGenerator(): void {
-        console.log(document.getElementById("addButton"));
         document.getElementById("addButton").addEventListener("click", () => this.generateInput());
+    }
+
+    assignListenerDeleteAll(): void {
+        document.getElementById("deleteAll").addEventListener("click", () => this.deleteAll());
     }
 
     generateInput(): void {
         let numberOfButtons: number = +document.getElementById("inputNumber").querySelector("input").value;
-        console.log(document.getElementById("inputNumber"));
-        console.log("created " + numberOfButtons);
+
         for(let i = 0; i< numberOfButtons; i++){
             
             let createDiv = document.createElement("div");
@@ -57,7 +64,7 @@ class StatApp {
         if(!elements) {
             throw new Error("Brak inputów");
         }
-        console.log(elements);
+
         const numberArray: Array<number> = [];
         for(let i = 0;i < elements.length; i++)
         {
