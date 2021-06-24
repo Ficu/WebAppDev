@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drumkit</title>
+</head>
+<body>
+  <div id="AppWrapper">
+    <h1>Drumkit App</h1>
+    <div id="buttonWrapper">
+      <button class="playSound">Q</button>
+      <button class="playSound">W</button>
+      <button class="playSound">E</button>
+      <button class="playSound">A</button>
+      <button class="playSound">S</button>
+      <button class="playSound">D</button> 
+    </div>
+
+    <div id="recordWrapper">
+      <div class="recordTrack">
+        <div class="recordTitle">
+          <h2>Track 1</h2>
+        </div>
+        <div class="recordButton">
+          <div class=progress>
+            <label for="prog-bar"></label>
+            <progress class= "progress-bar" id="prog-bar" max="100" value="0" position="relative">
+            </progress>
+        </div>
+          <button data-action="record">Record</button>
+          <button data-action="play">Play</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <audio src="sounds/boom.wav" data-sound="boom"></audio>
+    <audio src="sounds/clap.wav" data-sound="clap"></audio>
+    <audio src="sounds/hihat.wav" data-sound="hihat"></audio>
+    <audio src="sounds/kick.wav" data-sound="kick"></audio>
+    <audio src="sounds/openhat.wav" data-sound="openhat"></audio>
+    <audio src="sounds/ride.wav" data-sound="ride"></audio> 
+    <script src="index.js"></script>
+</body>
+</html>

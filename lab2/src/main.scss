@@ -1,0 +1,61 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #151515;
+}
+
+#AppWrapper {
+  width: 70%;
+  margin: 25px auto;
+}
+button {
+  background: none;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-weight: 100;
+  color: #2d6471;
+  padding: 10px;
+  &:hover {
+    color: #267e92; 
+    background-color: #fbfbfb;   
+  }
+}
+#buttonWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 40px;
+
+  .playSound {
+    width: auto;
+    height: 200px;
+    background: none;
+    border: 1px solid #dedede;
+    box-shadow: rgba(0,0,0,0.1) 0px 4px 12px;
+    border-radius: 5px;
+    font-size: 50px;
+    font-weight: 100;
+    color: #2d6471;
+ 
+    &:hover {
+      color: #267e92; 
+      background-color: #fbfbfb;    
+    }
+    &:active {
+      color: #3ba7c3;;
+    }
+  }
+}
+
+#recordWrapper {
+  display:flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  .recordTrack {
+    .recordTitle {
+      font-size:13px;
+    }
+    .recordButton {
+      padding-left: 10px;
+    }
+  }
+}
