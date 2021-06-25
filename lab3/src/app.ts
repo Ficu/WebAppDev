@@ -1,16 +1,26 @@
 export class App {
     opwApiKey = '4fb63daa3893eb6686fa6c5d34670466';    
+    cities: string[] = [];
 
     constructor() {
-        this.getCityInfo('zakopane')
         this.addListenersAndFindElements();
+        this.getData();
     }
-    async getCityInfo(city: string) {
-        const weather = await this.getWeather('zakopane');
-        this.saveData(weather);
-        console.log(localStorage.getItem('weaterData'));
+
+    private addListenersAndFindElements(): void {
+        let weatherButton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("#weatherButton");
+        let clearButton: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#clearButton');
+
+        weatherButton.addEventListener('click', () => this.addWeather());     
+        clearButton.addEventListener('click', () => this.clearData());
     }
-    async getWeather(city: string): Promise<any> {
+
+    private clearData(): void {
+        localStorage.clear();
+        document.getElementById("weatherWrapper").innerHTML = "";
+    }
+
+    private async getWeather(city: string): Promise<any> {
         const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${this.opwApiKey}&units=metric`;
         const weatherResponse = await fetch(openWeatherUrl);
         const weatherData = await weatherResponse.json();
@@ -20,35 +30,35 @@ export class App {
             return null;
         }        
     }
-    saveData(data: any) {
-        localStorage.setItem('weatherData', JSON.stringify(data));
-    }
-    getData() {
-        const data = localStorage.getItem('weatherData');
-        if (data) {
-            return JSON.parse(data);
-        } else {
-            return {};
-        }
+
+
+    private saveData(data: string) {
+        if(!this.cities.includes(data)) {
+        this.cities.push(data);
+        localStorage.setItem('cities', JSON.stringify(this.cities));
+         }
     }
 
-    private addListenersAndFindElements() {
-        let weatherButton = document.querySelector("#weatherButton");
-        let deleteButton = document.querySelector('.deleteElem');
+    private getData() {
+        const data : string[] = [...JSON.parse(localStorage.getItem('cities'))];
 
-        weatherButton.addEventListener('click', () => this.addWeather());       
+        data.forEach(city => this.getWeather(city).then((data : any) =>{
+                 this.newWeatherElem(data);
+             })
+        );
+    }        
 
-    }
 
-    async addWeather() {
+
+    private async addWeather() {
         const weatherInput = <HTMLInputElement>document.querySelector("#weatherInput");
         const weatherData =  await this.getWeather(weatherInput.value);
-        if(weatherData != null) {
-            this.saveData(weatherData);
+        if(weatherData != null && !this.cities.includes(weatherData.name)) {
+            this.saveData(weatherData.name);
             this.newWeatherElem(weatherData);
         }
     }
-
+ 
     private newWeatherElem(data: any){
 
         //tworzymy i dodajemy podstawowy weather elem do wrappera
@@ -87,7 +97,7 @@ export class App {
 
         //predkosc wiatru
         let elemLiWindspeed = document.createElement("li");
-        elemLiWindspeed.innerText = "Predkosc wiatru: " + data.main.humidity + "%";
+        elemLiWindspeed.innerText = "Wilgotność: " + data.main.humidity + "%";
         detailsList.appendChild(elemLiWindspeed);
 
         //wilgotnosc
