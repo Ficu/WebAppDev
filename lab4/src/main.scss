@@ -1,0 +1,205 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #151515;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+#AppWrapper {
+  width: 70%;
+  margin: 25px auto;
+}
+button {
+  background: none;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  font-weight: 100;
+  color: #2d6471;
+  padding: 10px;
+  background-color: white;
+  &:hover {
+    color: white; 
+    background-color: #267e92;  
+    cursor: pointer; 
+  }
+}
+
+ul {
+  list-style-type: none;
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 5px;
+    }
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+}
+
+dialog {
+  width: 100%;
+  height: 100%;
+  background-color: #0000002e;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  .modal {
+    width: 50%;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    background-color: white;
+    .title {
+      padding: 15px;
+      background-color: #2d6471;
+      color: white;
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+.colorYellow {
+  background-color: #acac00!important;
+  color: white!important;
+}
+.colorRed {
+  background-color: #7c0e0e!important;
+  color: white!important;
+}
+.colorBlue {
+  background-color: #0b3266!important;
+  color: white!important;
+}
+.colorGreen {
+  background-color: #0a5f24!important;
+  color: white!important;
+}
+.colorGrey {
+  background-color: #5c5c5c!important;
+  color: white!important;
+}
+
+.noteForm {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  input, textarea {
+    width: 100%;
+    min-height: 30px;
+    border: 1px solid #dedede;
+    padding-left: 10px;
+  }
+  .colorChooser {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    .checkButton {
+      border-radius: 10px;
+      input {
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+      }
+      &Yellow {
+        background-color: #acac00;
+      }
+      &Red {
+        background-color: #7c0e0e;
+      }
+      &Blue {
+        background-color: #0b3266;
+      }
+      &Green {
+        background-color: #0a5f24;
+      }
+      &Grey {
+        background-color: #5c5c5c;
+      }
+    }
+  }
+  #buttonSaveNote {
+    margin: 25px;
+  }
+}
+
+#title {
+  display: flex;
+  #addNoteButton, #clearButton {
+    margin-left: 15px;
+  }
+}
+
+
+#noteWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 40px;
+
+  .noteElem {
+    width: auto;
+    min-height: 180px;
+    padding: 20px;
+    background: none;
+    border: 1px solid #dedede;
+    box-shadow: rgba(0,0,0,0.1) 0px 4px 12px;
+    border-radius: 5px;
+    font-weight: 100;
+    color: #2d6471;
+    margin: 40px 0;
+
+    .deleteElem {
+        margin-top: -10px;
+        margin-right: -10px;
+        margin-bottom: 5px;
+        color: #c3c3c3;
+        float: right;
+        padding: 0;
+        border: 0;
+      &:hover {
+        cursor:pointer;
+        color:#267e92;
+      }
+    }
+ 
+    &:hover {
+      color: #267e92; 
+      background-color: #fbfbfb;    
+    }
+    &:active {
+      color: #3ba7c3;;
+    }
+
+    .noteTitle {
+      text-align: center;
+      font-size: 20px;
+      padding: 10px 0;
+      background-color: white;
+      color: black;
+      font-weight: lighter;
+      letter-spacing: 3px;
+      clear: both;
+      border-bottom: 5px solid #3f717d;
+    }
+
+    .noteContent {
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+  }
+}

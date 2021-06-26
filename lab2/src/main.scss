@@ -15,8 +15,9 @@ button {
   color: #2d6471;
   padding: 10px;
   &:hover {
-    color: #267e92; 
-    background-color: #fbfbfb;   
+    color: white; 
+    background-color: #267e92;
+    cursor: pointer;   
   }
 }
 #buttonWrapper {
